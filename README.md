@@ -1,3 +1,3 @@
 ## Law Firm Website 
 
-This is a static 
+This is a static website for 
