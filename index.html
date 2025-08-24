@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aravind Law Firm - Expert legal services with excellence. Specializing in Family Law, Criminal Law, Real Estate, Business Law, and more.">
+    <meta name="keywords" content="law firm, legal services, attorney, lawyer, family law, criminal law, real estate law">
+    <title>Aravind Law Firm - Where Expertise Meets Excellence</title>
+    <link rel="shortcut icon" href="./Aravind_logo.jpg" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#0a1f44',
+                        'gold': '#c49a5b',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        .slider-container { position: relative; overflow: hidden; }
+        .slider-track { display: flex; transition: transform 0.5s ease-in-out; }
+        .slider-slide { min-width: 100%; }
+
+        /* Loading Animation Styles */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3a8a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(196, 154, 91, 0.3);
+            border-top: 4px solid #c49a5b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-text {
+            color: #c49a5b;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease-in;
+        }
+
+        .main-content.loaded {
+            opacity: 1;
+        }
+
+        /* Disclaimer Popup Styles */
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .disclaimer-popup {
+            background: white;
+            max-width: 600px;
+            max-height: 80vh;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: popupSlideIn 0.4s ease-out;
+        }
+
+        .disclaimer-header {
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3a8a 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .disclaimer-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .disclaimer-buttons {
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .disclaimer-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .btn-agree {
+            background: #c49a5b;
+            color: white;
+        }
+
+        .btn-agree:hover {
+            background: #b8904f;
+            transform: translateY(-2px);
+        }
+
+        .btn-disagree {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-disagree:hover {
+            background: #4b5563;
+            transform: translateY(-2px);
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .disclaimer-overlay.hidden {
+            display: none;
+        }
+
+        /* Animation Classes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .animation-delay-300 { animation-delay: 0.3s; }
+        .animation-delay-600 { animation-delay: 0.6s; }
+        .animation-delay-900 { animation-delay: 0.9s; }
+
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile-specific improvements */
+        @media (max-width: 640px) {
+            .hero-title {
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+            }
+
+            .hero-subtitle {
+                line-height: 1.3;
+            }
+
+            .hero-description {
+                line-height: 1.6;
+                font-size: 1rem;
+            }
+
+            /* Ensure proper spacing on very small screens */
+            .hero-content {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            /* Adjust button for mobile */
+            .hero-button {
+                font-size: 1.125rem;
+                padding: 0.875rem 1.5rem;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+                line-height: 1.1;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Modern Navigation Button Styling */
+        .nav-consultation-btn {
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3a8a 50%, #1e40af 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 8px 25px rgba(10, 31, 68, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-consultation-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-consultation-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-consultation-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3a8a 50%, #1e40af 100%);
+            box-shadow:
+                0 12px 35px rgba(10, 31, 68, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .nav-consultation-btn:active {
+            transform: translateY(0) scale(1.02);
+            box-shadow:
+                0 6px 20px rgba(196, 154, 91, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Mobile version of the button */
+        .nav-consultation-btn-mobile {
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3a8a 50%, #1e40af 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(10, 31, 68, 0.3);
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .nav-consultation-btn-mobile:hover {
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #daa520 100%);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(196, 154, 91, 0.4);
+        }
+
+        /* Universal Modern Button Styling */
+        .modern-btn {
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3a8a 50%, #1e40af 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 8px 25px rgba(10, 31, 68, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .modern-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .modern-btn:hover::before {
+            left: 100%;
+        }
+
+        .modern-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #daa520 100%);
+            box-shadow:
+                0 12px 35px rgba(196, 154, 91, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .modern-btn:active {
+            transform: translateY(0) scale(1.02);
+            box-shadow:
+                0 6px 20px rgba(10, 31, 68, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Large button variant */
+        .modern-btn-lg {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: 60px;
+        }
+
+        /* Small button variant */
+        .modern-btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 40px;
+        }
+
+        /* Full width variant */
+        .modern-btn-full {
+            width: 100%;
+        }
+
+        /* Circular button variant for navigation arrows */
+        .modern-btn-circle {
+            border-radius: 50%;
+            padding: 16px;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Disclaimer button variants */
+        .modern-btn-agree {
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%);
+        }
+
+        .modern-btn-agree:hover {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #059669 100%);
+        }
+
+        .modern-btn-disagree {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #b91c1c 100%);
+        }
+
+        .modern-btn-disagree:hover {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 50%, #dc2626 100%);
+        }
+
+        /* WhatsApp button specific styling */
+        .modern-btn-whatsapp:hover {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 50%, #075e54 100%) !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Loading Animation -->
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+        <div class="loader-text">Loading...</div>
+    </div>
+
+    <!-- Disclaimer Popup -->
+    <div class="disclaimer-overlay" id="disclaimerOverlay" style="display: none; opacity: 0; transform: scale(0.8);">
+        <div class="disclaimer-popup">
+            <div class="disclaimer-header">
+                <h2 class="text-2xl font-bold mb-2">Website Disclaimer</h2>
+                <p class="text-sm opacity-90">Please read and accept the following terms</p>
+            </div>
+            <div class="disclaimer-content">
+                <p class="mb-4">By clicking "I Accept" below, you confirm that you understand and agree to the following:</p>
+
+                <p class="mb-4">In accordance with the rules of the Bar Council of India and the Advocates Act, 1961, advocates are prohibited from soliciting clients or advertising their services. The content provided herein is for general informational purposes only and does not constitute legal advice, solicitation, or an invitation to form an attorney-client relationship, and users should not act on any information contained herein without first seeking professional legal counsel in their relevant jurisdiction. Any communication with Aravind Law Firm through email, chat, blog, or other channels does not create or imply an attorney-client relationship. The material on this site is made available at your specific request and should not be interpreted as solicitation or advertisement.</p>
+
+                <p class="mb-4 font-semibold">By using this website, you confirm and acknowledge the following:</p>
+
+                <ul class="list-disc pl-6 space-y-2 mb-4">
+                    <li>You are accessing this website solely to obtain information about Aravind Law Firm for your personal or professional use.</li>
+                    <li>You have not received any form of unsolicited communication, advertisement, or solicitation from Aravind Law Firm or any of its members encouraging you to access this website.</li>
+                    <li>Any information or materials obtained from this website are accessed voluntarily and at your own discretion.</li>
+                    <li>Communication through this website, including via email, chat, or any other medium, does not create an attorney-client relationship with Aravind Law Firm.</li>
+                    <li>Aravind Law Firm bears no responsibility for the interpretation or use of any content on this website and offers no express or implied warranties regarding its accuracy, completeness, or relevance.</li>
+                    <li>You agree that Aravind Law Firm is not liable for any consequences resulting from the use or reliance on the information available on this website.</li>
+                </ul>
+            </div>
+            <div class="disclaimer-buttons">
+                <button class="modern-btn modern-btn-agree" id="agreeBtn">I Accept</button>
+                <button class="modern-btn modern-btn-disagree" id="disagreeBtn">Disagree</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 shadow-lg">
+        <!-- Top Bar with Contact Info -->
+        <div class="bg-white text-gray-700 text-sm py-2 hidden md:block">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex space-x-6">
+                        <span><i class="fas fa-phone mr-1"></i>Call Us: +919100499431</span>
+                        <span><i class="fas fa-envelope mr-1"></i>Email us: contact@aravindlawfirm.com</span>
+                    </div>
+                    <div class="flex space-x-3">
+                        <a href="#" class="text-gray-600 hover:text-navy transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-navy transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-navy transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="bg-gold text-navy">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center py-3">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <img src="./Aravind_logo.jpg" alt="Aravind Law Firm Logo" class="w-12 h-12 rounded-full mr-3 object-cover">
+                        <div class="text-xl font-bold">Aravind Law Firm</div>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden lg:flex items-center space-x-4">
+                        <a href="#home" class="hover:text-white hover:scale-105 transition-all duration-300 font-medium py-2 px-3 rounded text-lg">Home</a>
+                        <a href="#about" class="hover:text-white hover:scale-105 transition-all duration-300 font-medium py-2 px-3 rounded text-lg">About Us</a>
+                        <a href="#practice-areas" class="hover:text-white hover:scale-105 transition-all duration-300 font-medium py-2 px-3 rounded text-lg">Practice Areas</a>
+                        <a href="#founder" class="hover:text-white hover:scale-105 transition-all duration-300 font-medium py-2 px-3 rounded text-lg">Case Status</a>
+                        <a href="#contact" class="hover:text-white hover:scale-105 transition-all duration-300 font-medium py-2 px-3 rounded text-lg">Careers</a>
+                        <a href="#contact" class="hover:text-white hover:scale-105 transition-all duration-300 font-medium py-2 px-3 rounded text-lg">Contact Us</a>
+                        <button onclick="document.getElementById('contact').scrollIntoView()"
+                                class="nav-consultation-btn">
+                            Free Consultation
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-menu" class="hidden lg:hidden pb-4">
+                    <a href="#home" class="block py-2 hover:text-white transition">Home</a>
+                    <a href="#about" class="block py-2 hover:text-white transition">About Us</a>
+                    <a href="#practice-areas" class="block py-2 hover:text-white transition">Practice Areas</a>
+                    <a href="#founder" class="block py-2 hover:text-white transition">Case Status</a>
+                    <a href="#contact" class="block py-2 hover:text-white transition">Careers</a>
+                    <a href="#contact" class="block py-2 hover:text-white transition">Contact Us</a>
+                    <button onclick="document.getElementById('contact').scrollIntoView()"
+                            class="nav-consultation-btn-mobile">
+                        Free Consultation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen mt-16 md:mt-20 overflow-hidden">
+        <div class="slider-container h-full">
+            <div class="slider-track h-full" id="hero-slider">
+                <!-- Slide 1 -->
+                <div class="slider-slide relative h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/70 z-10"></div>
+                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                         style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+                    </div>
+                    <div class="relative z-20 h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+                        <div class="text-center text-white w-full max-w-4xl mx-auto hero-content">
+                            <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight animate-fade-in-up">
+                                <span class="block">Where Expertise</span>
+                                <span class="block">Meets Excellence</span>
+                            </h1>
+                            <h2 class="hero-subtitle text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 text-gold animate-fade-in-up animation-delay-300">at Aravind Law Firm</h2>
+                            <p class="hero-description text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-gray-200 leading-relaxed max-w-3xl mx-auto animate-fade-in-up animation-delay-600">Providing exceptional legal services with integrity, professionalism, and dedication to our clients' success.</p>
+                            <button onclick="document.getElementById('contact').scrollIntoView()"
+                                    class="modern-btn modern-btn-lg animate-fade-in-up animation-delay-900 w-full sm:w-auto">
+                                Free Consultation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slider-slide relative h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/70 z-10"></div>
+                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                         style="background-image: url('https://t3.ftcdn.net/jpg/02/14/12/32/360_F_214123202_KGIiCLK8MZaYN6jKfLcteCZLqNTAtmJ3.jpg');">
+                    </div>
+                    <div class="relative z-20 h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+                        <div class="text-center text-white w-full max-w-4xl mx-auto hero-content">
+                            <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                                <span class="block">Professional</span>
+                                <span class="block">Legal Services</span>
+                            </h1>
+                            <h2 class="hero-subtitle text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 text-gold">Trusted by Thousands</h2>
+                            <p class="hero-description text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-gray-200 leading-relaxed max-w-3xl mx-auto">Over 15 years of experience in providing comprehensive legal solutions for individuals and businesses.</p>
+                            <button onclick="document.getElementById('contact').scrollIntoView()"
+                                    class="modern-btn modern-btn-lg w-full sm:w-auto">
+                                Get Started Today
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <button class="modern-btn modern-btn-circle absolute left-6 top-1/2 transform -translate-y-1/2 z-30 group hidden md:flex" onclick="previousSlide()">
+                <i class="fas fa-chevron-left text-xl group-hover:scale-110 transition-transform"></i>
+            </button>
+            <button class="modern-btn modern-btn-circle absolute right-6 top-1/2 transform -translate-y-1/2 z-30 group hidden md:flex" onclick="nextSlide()">
+                <i class="fas fa-chevron-right text-xl group-hover:scale-110 transition-transform"></i>
+            </button>
+
+            <!-- Slide Indicators -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+                <button class="modern-btn-sm w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300" onclick="goToSlide(0)" id="indicator-0"></button>
+                <button class="modern-btn-sm w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300" onclick="goToSlide(1)" id="indicator-1"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="flex justify-center px-4">
+            <div class="max-w-6xl w-full bg-white rounded-2xl shadow-2xl p-12 scroll-animate">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="scroll-animate">
+                        <h2 class="text-4xl font-bold text-navy mb-6">About Our Firm</h2>
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            At Aravind Law Firm, we are committed to providing exceptional legal services with integrity,
+                            professionalism, and dedication. Our team of experienced attorneys brings decades of combined
+                            experience to serve our clients' diverse legal needs.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            We believe in building lasting relationships with our clients through transparent communication,
+                            strategic thinking, and relentless advocacy for their interests.
+                        </p>
+                        <div class="mt-8 grid grid-cols-2 gap-6">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gold">15+</div>
+                                <div class="text-gray-600">Years Experience</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gold">1250+</div>
+                                <div class="text-gray-600">Cases Won</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-animate">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                                 alt="Attorney Team"
+                                 class="w-full h-96 object-cover rounded-lg shadow-lg">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Areas -->
+    <section id="practice-areas" class="py-20 bg-gray-50">
+        <div class="flex justify-center px-4">
+            <div class="max-w-6xl w-full bg-white rounded-2xl shadow-2xl p-12 scroll-animate">
+                <h2 class="text-4xl font-bold text-center text-navy mb-12 scroll-animate">Our Practice Areas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+                    <div class="bg-gradient-to-br from-white to-gray-50 p-8 md:p-8 rounded-lg md:rounded-xl shadow-lg card-hover text-center border-2 border-gray-200 hover:border-gold scroll-animate transition-all duration-300 aspect-square md:aspect-auto">
+                        <div class="w-20 h-20 md:w-16 md:h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-6">
+                            <i class="fas fa-home text-4xl md:text-3xl text-gold"></i>
+                        </div>
+                        <h3 class="text-xl md:text-xl font-bold text-navy mb-4 md:mb-4">Family Law</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed hidden md:block">Divorce, custody, adoption, and family-related legal matters handled with care and expertise.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed md:hidden">Family legal matters with expertise.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-white to-gray-50 p-8 md:p-8 rounded-lg md:rounded-xl shadow-lg card-hover text-center border-2 border-gray-200 hover:border-gold scroll-animate transition-all duration-300 aspect-square md:aspect-auto">
+                        <div class="w-20 h-20 md:w-16 md:h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-6">
+                            <i class="fas fa-gavel text-4xl md:text-3xl text-gold"></i>
+                        </div>
+                        <h3 class="text-xl md:text-xl font-bold text-navy mb-4 md:mb-4">Criminal Law</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed hidden md:block">Aggressive defense for criminal charges with a track record of successful outcomes.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed md:hidden">Criminal defense with proven results.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-white to-gray-50 p-8 md:p-8 rounded-lg md:rounded-xl shadow-lg card-hover text-center border-2 border-gray-200 hover:border-gold scroll-animate transition-all duration-300 aspect-square md:aspect-auto">
+                        <div class="w-20 h-20 md:w-16 md:h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-6">
+                            <i class="fas fa-building text-4xl md:text-3xl text-gold"></i>
+                        </div>
+                        <h3 class="text-xl md:text-xl font-bold text-navy mb-4 md:mb-4">Real Estate Law</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed hidden md:block">Property transactions, disputes, and real estate legal services for buyers and sellers.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed md:hidden">Property transactions and disputes.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-white to-gray-50 p-8 md:p-8 rounded-lg md:rounded-xl shadow-lg card-hover text-center border-2 border-gray-200 hover:border-gold scroll-animate transition-all duration-300 aspect-square md:aspect-auto">
+                        <div class="w-20 h-20 md:w-16 md:h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-6">
+                            <i class="fas fa-briefcase text-4xl md:text-3xl text-gold"></i>
+                        </div>
+                        <h3 class="text-xl md:text-xl font-bold text-navy mb-4 md:mb-4">Business Law</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed hidden md:block">Corporate formation, contracts, compliance, and business litigation services.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed md:hidden">Corporate and business services.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-white to-gray-50 p-8 md:p-8 rounded-lg md:rounded-xl shadow-lg card-hover text-center border-2 border-gray-200 hover:border-gold scroll-animate transition-all duration-300 aspect-square md:aspect-auto">
+                        <div class="w-20 h-20 md:w-16 md:h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-6">
+                            <i class="fas fa-graduation-cap text-4xl md:text-3xl text-gold"></i>
+                        </div>
+                        <h3 class="text-xl md:text-xl font-bold text-navy mb-4 md:mb-4">Education Law</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed hidden md:block">Student rights, institutional compliance, and educational legal matters.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed md:hidden">Student rights and compliance.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-white to-gray-50 p-8 md:p-8 rounded-lg md:rounded-xl shadow-lg card-hover text-center border-2 border-gray-200 hover:border-gold scroll-animate transition-all duration-300 aspect-square md:aspect-auto">
+                        <div class="w-20 h-20 md:w-16 md:h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-6">
+                            <i class="fas fa-user-injured text-4xl md:text-3xl text-gold"></i>
+                        </div>
+                        <h3 class="text-xl md:text-xl font-bold text-navy mb-4 md:mb-4">Personal Injury</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed hidden md:block">Compensation for accidents, medical malpractice, and personal injury claims.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed md:hidden">Accident and injury compensation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section id="founder" class="py-20">
+        <div class="flex justify-center px-4">
+            <div class="max-w-6xl w-full bg-white rounded-2xl shadow-2xl p-12 scroll-animate">
+                <h2 class="text-4xl font-bold text-center text-navy mb-12 scroll-animate">Meet Our Founder</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center scroll-animate">
+                        <div class="w-72 h-72 mx-auto mb-8 relative group cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                                 alt="Ventrapragada Aravind"
+                                 class="w-full h-full object-cover rounded-full shadow-xl border-4 border-gold transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl">
+                            <div class="absolute inset-0 rounded-full bg-gradient-to-t from-navy/20 to-transparent transition-all duration-500"></div>
+                        </div>
+                        <div class="flex justify-center space-x-4 mb-6">
+                            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center hover:bg-gold/20 hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <i class="fas fa-award text-gold text-xl hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center hover:bg-gold/20 hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <i class="fas fa-graduation-cap text-gold text-xl hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center hover:bg-gold/20 hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <i class="fas fa-balance-scale text-gold text-xl hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-animate">
+                        <h3 class="text-3xl font-bold text-navy mb-6">Ventrapragada Aravind</h3>
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            With over 15 years of experience in the legal field, Aravind Kumar founded this firm with a vision
+                            to provide accessible, high-quality legal services to individuals and businesses. His expertise spans
+                            multiple practice areas, and he is known for his strategic approach and dedication to client success.
+                        </p>
+                        <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                            <h4 class="font-bold text-navy mb-3">Credentials & Achievements</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-2"></i>J.D. from National Law School</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-2"></i>Member of the State Bar Association</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-2"></i>Top Attorney - Legal Excellence Awards 2023</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-2"></i>15+ Years of Legal Experience</li>
+                            </ul>
+                        </div>
+                        <button onclick="document.getElementById('contact').scrollIntoView()"
+                                class="modern-btn modern-btn-lg">
+                            Schedule a Meeting
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counter Section -->
+    <section id="counter-section" class="py-20 bg-navy text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-gold mb-2" data-count="1250">0</div>
+                    <div class="text-xl">Cases Solved</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-gold mb-2" data-count="15">0</div>
+                    <div class="text-xl">Expert Attorneys</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-gold mb-2" data-count="2500">0</div>
+                    <div class="text-xl">Trusted Clients</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-gold mb-2" data-count="98">0</div>
+                    <div class="text-xl">Success Rate %</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="contact" class="py-20 mt-20 bg-gradient-to-br from-navy to-blue-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="absolute top-0 left-0 w-full h-full">
+            <div class="absolute top-10 left-10 w-20 h-20 bg-gold/10 rounded-full"></div>
+            <div class="absolute bottom-20 right-20 w-32 h-32 bg-gold/5 rounded-full"></div>
+            <div class="absolute top-1/2 right-10 w-16 h-16 bg-gold/10 rounded-full"></div>
+        </div>
+        <div class="relative z-10 flex justify-center px-4">
+            <div class="max-w-6xl w-full">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Book Your Free Consultation</h2>
+                    <p class="text-xl text-gray-200">Get expert legal advice tailored to your needs</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Contact Info -->
+                    <div class="text-white scroll-animate">
+                        <h3 class="text-2xl font-bold mb-8 text-gold">Get in Touch</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-gold"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Call Us</div>
+                                    <div class="text-gray-300">+919100499431</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-gold"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Email Us</div>
+                                    <div class="text-gray-300">contact@aravindlawfirm.com</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-clock text-gold"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Office Hours</div>
+                                    <div class="text-gray-300">Mon - Fri: 9:00 AM - 6:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="scroll-animate">
+                        <form id="appointment-form" class="bg-white/10 backdrop-blur-sm p-10 rounded-2xl shadow-2xl border border-white/20">
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-white font-semibold mb-2">Name *</label>
+                                    <input type="text" id="name" required class="w-full p-4 bg-white/10 border border-white/30 rounded-lg focus:border-gold focus:outline-none text-white placeholder-gray-300" placeholder="Your Name">
+                                </div>
+                                <div>
+                                    <label class="block text-white font-semibold mb-2">Email *</label>
+                                    <input type="email" id="email" required class="w-full p-4 bg-white/10 border border-white/30 rounded-lg focus:border-gold focus:outline-none text-white placeholder-gray-300" placeholder="your@email.com">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-white font-semibold mb-2">Phone *</label>
+                                <input type="tel" id="phone" required class="w-full p-4 bg-white/10 border border-white/30 rounded-lg focus:border-gold focus:outline-none text-white placeholder-gray-300" placeholder="+91 XXXXX XXXXX">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-white font-semibold mb-2">Legal Matter</label>
+                                <select class="w-full p-4 bg-white/10 border border-white/30 rounded-lg focus:border-gold focus:outline-none text-white" style="color-scheme: dark;">
+                                    <option value="" class="bg-navy text-white">Select Practice Area</option>
+                                    <option value="family" class="bg-navy text-white hover:bg-gold hover:text-navy">Family Law</option>
+                                    <option value="criminal" class="bg-navy text-white hover:bg-gold hover:text-navy">Criminal Law</option>
+                                    <option value="real-estate" class="bg-navy text-white hover:bg-gold hover:text-navy">Real Estate Law</option>
+                                    <option value="business" class="bg-navy text-white hover:bg-gold hover:text-navy">Business Law</option>
+                                    <option value="education" class="bg-navy text-white hover:bg-gold hover:text-navy">Education Law</option>
+                                    <option value="personal-injury" class="bg-navy text-white hover:bg-gold hover:text-navy">Personal Injury</option>
+                                </select>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-white font-semibold mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full p-4 bg-white/10 border border-white/30 rounded-lg focus:border-gold focus:outline-none text-white placeholder-gray-300" placeholder="Tell us about your legal needs..."></textarea>
+                            </div>
+                            <button type="submit" class="modern-btn modern-btn-lg modern-btn-full modern-btn-whatsapp flex items-center justify-center">
+                                <i class="fab fa-whatsapp mr-3 text-2xl"></i>
+                                Send via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-4">About Us</h3>
+                    <p class="text-gray-300">
+                        Aravind Law Firm provides expert legal services with integrity and dedication.
+                        We are committed to achieving the best outcomes for our clients.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-4">Contact Info</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>123 Legal Street, City, State 12345</p>
+                        <p><i class="fas fa-phone mr-2"></i>+1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope mr-2"></i>info@aravindlawfirm.com</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-4">Quick Links</h3>
+                    <div class="space-y-2">
+                        <a href="#home" class="block text-gray-300 hover:text-gold transition">Home</a>
+                        <a href="#about" class="block text-gray-300 hover:text-gold transition">About</a>
+                        <a href="#founder" class="block text-gray-300 hover:text-gold transition">Founder</a>
+                        <a href="#contact" class="block text-gray-300 hover:text-gold transition">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-4">Practice Areas</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <p>Family Law</p>
+                        <p>Criminal Law</p>
+                        <p>Real Estate Law</p>
+                        <p>Business Law</p>
+                        <p>Education Law</p>
+                        <p>Personal Injury</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 Aravind Law Firm. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919100499431?text=Hello%20Aravind%20Law%20Firm%21%20%F0%9F%8F%9B%EF%B8%8F%0A%0AI%20am%20interested%20in%20your%20legal%20services%20and%20would%20like%20to%20schedule%20a%20consultation.%20%0A%0ACould%20you%20please%20provide%20me%20with%20more%20information%20about%3A%0A%E2%80%A2%20Your%20practice%20areas%0A%E2%80%A2%20Consultation%20process%0A%E2%80%A2%20Fee%20structure%0A%0AThank%20you%20for%20your%20time.%20I%20look%20forward%20to%20hearing%20from%20you.%0A%0ABest%20regards" target="_blank"
+       class="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full shadow-2xl hover:from-green-600 hover:to-green-700 hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center animate-pulse">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-slide');
+        const totalSlides = slides.length;
+        const slider = document.getElementById('hero-slider');
+
+        function updateIndicators() {
+            document.querySelectorAll('[id^="indicator-"]').forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('bg-white');
+                    indicator.classList.remove('bg-white/50');
+                } else {
+                    indicator.classList.add('bg-white/50');
+                    indicator.classList.remove('bg-white');
+                }
+            });
+        }
+
+        function showSlide(index) {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            updateIndicators();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Initialize indicators
+        updateIndicators();
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-count]');
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current);
+                }, 16);
+            });
+        }
+
+        // Trigger counter animation when section is visible
+        const counterSection = document.querySelector('.bg-navy');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        observer.observe(counterSection);
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const animateElements = document.querySelectorAll('.scroll-animate');
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Initialize scroll animations
+        initScrollAnimations();
+
+        // WhatsApp Form Submission
+        document.getElementById('appointment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            // Create a clean WhatsApp message
+            const whatsappMessage = `*New Form from Website*
+
+            👤 *Name:* ${name}
+            📧 *Email:* ${email}
+            📱 *Phone:* ${phone}
+            � *Message:* ${message}`;
+
+            const whatsappURL = `https://wa.me/919100499431?text=${encodeURIComponent(whatsappMessage)}`;
+
+            window.open(whatsappURL, '_blank');
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Disclaimer Popup Script
+        document.addEventListener('DOMContentLoaded', function() {
+            const disclaimerOverlay = document.getElementById('disclaimerOverlay');
+            const agreeBtn = document.getElementById('agreeBtn');
+            const disagreeBtn = document.getElementById('disagreeBtn');
+            const loader = document.getElementById('loader');
+            const mainContent = document.getElementById('mainContent');
+
+            // Check if user has already accepted disclaimer
+            const hasAcceptedDisclaimer = localStorage.getItem('disclaimerAccepted');
+
+            if (!hasAcceptedDisclaimer) {
+                // Show disclaimer popup after a short delay
+                setTimeout(() => {
+                    disclaimerOverlay.style.display = 'flex';
+                    disclaimerOverlay.style.opacity = '1';
+                    disclaimerOverlay.style.transform = 'scale(1)';
+                }, 500);
+            } else {
+                // If already accepted, hide disclaimer and proceed with normal loading
+                disclaimerOverlay.style.display = 'none';
+                proceedWithLoading();
+            }
+
+            // Handle Agree button
+            agreeBtn.addEventListener('click', function() {
+                localStorage.setItem('disclaimerAccepted', 'true');
+                // Hide the disclaimer popup with animation
+                disclaimerOverlay.style.opacity = '0';
+                disclaimerOverlay.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    disclaimerOverlay.style.display = 'none';
+                }, 300);
+                proceedWithLoading();
+            });
+
+            // Handle Disagree button
+            disagreeBtn.addEventListener('click', function() {
+                // Close the tab/window
+                window.close();
+                // Fallback: redirect to a blank page if window.close() doesn't work
+                setTimeout(() => {
+                    window.location.href = 'about:blank';
+                }, 100);
+            });
+
+            // Function to proceed with normal loading
+            function proceedWithLoading() {
+                // Hide loader and show main content
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    mainContent.classList.add('loaded');
+                }, 1000); // Show loader for at least 1 second
+            }
+        });
+
+        // Counter Animation Script
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16); // 60fps
+            const isPercentage = element.getAttribute('data-count') === '98';
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    if (isPercentage) {
+                        element.textContent = target + '%';
+                    } else {
+                        element.textContent = target + '+';
+                    }
+                    clearInterval(timer);
+                } else {
+                    if (isPercentage) {
+                        element.textContent = Math.floor(start) + '%';
+                    } else {
+                        element.textContent = Math.floor(start) + '+';
+                    }
+                }
+            }, 16);
+        }
+
+        // Intersection Observer for Counter Animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('[data-count]');
+                    counters.forEach(counter => {
+                        if (!counter.classList.contains('animated')) {
+                            const target = parseInt(counter.getAttribute('data-count'));
+                            animateCounter(counter, target);
+                            counter.classList.add('animated');
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5 // Trigger when 50% of the section is visible
+        });
+
+        // Observe the counter section
+        document.addEventListener('DOMContentLoaded', function() {
+            const counterSection = document.getElementById('counter-section');
+            if (counterSection) {
+                counterObserver.observe(counterSection);
+            }
+        });
+    </script>
+    </div> <!-- End Main Content -->
+</body>
+</html>
